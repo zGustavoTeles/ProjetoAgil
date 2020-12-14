@@ -1,8 +1,12 @@
 package com.cadastroDeAnimais;
 
+import com.agenda.Agenda;
 import com.auxiliares.Auxiliares;
 import com.bottom.BottomImg;
 import com.litebase.LitebasePack;
+import com.sun.org.apache.bcel.internal.generic.IDIV;
+
+import litebase.ResultSet;
 import totalcross.ui.Button;
 import totalcross.ui.ComboBox;
 import totalcross.ui.Edit;
@@ -11,8 +15,10 @@ import totalcross.ui.ImageControl;
 import totalcross.ui.Label;
 import totalcross.ui.event.ControlEvent;
 import totalcross.ui.event.Event;
+import totalcross.ui.event.PenEvent;
 import totalcross.ui.gfx.Color;
 import totalcross.ui.image.Image;
+import totalcross.util.Date;
 import totalcross.util.Random;
 
 public class CadastroDeAnimais extends totalcross.ui.Window{
@@ -22,7 +28,7 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
     private Button							btnVoltar;
     
     public Label 							lblDescricao;
-    public Label 							lblIdadeMeses;
+    public Label 							lblIdade;
     public Label 							lblSexo;
     public Label 							lblRaca;
     public Label 							lblPeso;
@@ -33,20 +39,20 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 //    public Label 							lblMesesAtual;
 //    public Label 							lblCategoriaMeses;
     public Label 							lblStatus;
-    public Label 							lblSetor;
+    public Label 							lblPastagem;
     
     public Edit 							editDescricao;
     public Edit								editPrecoCompra;
     public Edit								editPrecoAtual;
     public Edit								editDataCompra;
+    public Edit								editPastagem;
+    public Edit								editIdade;
     
-    public ComboBox							cmbIdadeMeses;
     public ComboBox							cmbSexo;
     public ComboBox							cmbRaca;
     public ComboBox							cmbPeso;
     public ComboBox							cmbDataCompra;
     public ComboBox							cmbStatus;
-    public ComboBox							cmbSetor;
     
 
 	
@@ -72,17 +78,18 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			editDescricao.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblDescricao);
 			editDescricao.setBackColor(Color.WHITE);
 			editDescricao.setForeColor(0x1c355d);
-			editDescricao.setValidChars("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z ");
 			
-			lblIdadeMeses = new Label("IDADE/MESES:");
-			add(lblIdadeMeses);
-			lblIdadeMeses.setRect(LEFT + 180, AFTER + 10, PREFERRED, PREFERRED);
-			lblIdadeMeses.setForeColor(Color.WHITE);
-			lblIdadeMeses.setFont(Auxiliares.getFontBold());
+			lblIdade = new Label("IDADE:");
+			add(lblIdade);
+			lblIdade.setRect(LEFT + 180, AFTER + 10, PREFERRED, PREFERRED);
+			lblIdade.setForeColor(Color.WHITE);
+			lblIdade.setFont(Auxiliares.getFontBold());
 			
-			cmbIdadeMeses = new ComboBox();			
-			add(cmbIdadeMeses);
-			cmbIdadeMeses.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblIdadeMeses);
+			editIdade = new Edit();			
+			add(editIdade);
+			editIdade.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblIdade);
+			editIdade.setBackColor(Color.WHITE);
+			editIdade.setForeColor(0x1c355d);
 			
 			lblSexo = new Label("SEXO:");
 			add(lblSexo);
@@ -92,7 +99,7 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			
 			cmbSexo = new ComboBox();			
 			add(cmbSexo);
-			cmbSexo.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblIdadeMeses);
+			cmbSexo.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblSexo);
 			
 			lblRaca = new Label("RAÇA:");
 			add(lblRaca);
@@ -103,16 +110,6 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			cmbRaca = new ComboBox();			
 			add(cmbRaca);
 			cmbRaca.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblRaca);
-			
-			lblPeso = new Label("PRESO (KGS):");
-			add(lblPeso);
-			lblPeso.setRect(LEFT + 180, AFTER + 10, PREFERRED, PREFERRED);
-			lblPeso.setForeColor(Color.WHITE);
-			lblPeso.setFont(Auxiliares.getFontBold());
-			
-			cmbPeso = new ComboBox();			
-			add(cmbPeso);
-			cmbPeso.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblPeso);
 			
 			lblDataCompra = new Label("DATA DA COMPRA:");
 			add(lblDataCompra);
@@ -125,6 +122,22 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			editDataCompra.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblDataCompra);
 			editDataCompra.setBackColor(Color.WHITE);
 			editDataCompra.setForeColor(0x1c355d);
+			
+			/*
+			 * Trecho comentado para ser habilitado quando for necessário
+			 * o uso do peso para o animal
+			 */
+			
+//			lblPeso = new Label("PESO (KGS):");
+//			add(lblPeso);
+//			lblPeso.setRect(LEFT + 180, AFTER + 10, PREFERRED, PREFERRED);
+//			lblPeso.setForeColor(Color.WHITE);
+//			lblPeso.setFont(Auxiliares.getFontBold());
+//			
+//			cmbPeso = new ComboBox();			
+//			add(cmbPeso);
+//			cmbPeso.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblPeso);
+
 			
 			lblPrecoCompra = new Label("PREÇO DE COMPRA:");
 			add(lblPrecoCompra);
@@ -160,15 +173,17 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			add(cmbStatus);
 			cmbStatus.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblStatus);
 			
-			lblSetor = new Label("SETOR:");
-			add(lblSetor);
-			lblSetor.setRect(LEFT + 180, AFTER + 10, PREFERRED, PREFERRED);
-			lblSetor.setForeColor(Color.WHITE);
-			lblSetor.setFont(Auxiliares.getFontBold());
+			lblPastagem = new Label("PASTAGEM:");
+			add(lblPastagem);
+			lblPastagem.setRect(LEFT + 180, AFTER + 10, PREFERRED, PREFERRED);
+			lblPastagem.setForeColor(Color.WHITE);
+			lblPastagem.setFont(Auxiliares.getFontBold());
 			
-			cmbSetor = new ComboBox();			
-			add(cmbSetor);
-			cmbSetor.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblSetor);
+			editPastagem = new Edit();			
+			add(editPastagem);
+			editPastagem.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblPastagem);
+			editPastagem.setBackColor(Color.WHITE);
+			editPastagem.setForeColor(0x1c355d);
 
 			btnCadastrar = BottomImg.imageWithText(new Image("img/cadastrar.png"), "Cadastrar", Button.BOTTOM);
 			add(btnCadastrar, LEFT - 2, BOTTOM, SCREENSIZE + 18, SCREENSIZE + 15);
@@ -180,9 +195,12 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			btnVoltar.setBackColor(0x1c355d);
             btnVoltar.setForeColor(Color.WHITE);
 
+			carregaCmbSexo();
+			carregaCmbRaca();
+			carregaCmbStatus();
+
 			reposition();
-
-
+			
 		} catch (Exception e) {
 
 			Auxiliares.messagebox("Erro", "construir a tela CadastrarUsuario");
@@ -197,14 +215,16 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			case ControlEvent.PRESSED:
 
 				if (evt.target == btnCadastrar) {
-					
 
 				} else if (evt.target == btnVoltar) {
 					unpop();
+				}
 
-				} else if (evt.target == btnDeletar) {
-//					Usuarios usuarios = new Usuarios();
-//					usuarios.popup();
+			case PenEvent.PEN_DOWN:
+
+				if (evt.target == editDataCompra) {
+					Agenda.setDateByCalendarBox(editDataCompra);
+
 				}
 
 			}
@@ -212,6 +232,130 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			/*
 			Auxiliares.artMsgbox("ERRO", "Erro na validação da tela carrinho\n" + e);
 			*/
+		}
+
+	}
+	
+	public void carregaCmbSexo() {
+		{
+			String sql = "";
+			LitebasePack lb = null;
+			ResultSet rs = null;
+
+			try {
+				try {
+					lb = new LitebasePack();
+					sql = " SELECT DESCRICAO FROM SEXO";
+
+					rs = lb.executeQuery(sql);
+					rs.first();
+					for (int i = 0; rs.getRowCount() > i; i++) {
+						String[] b = new String[1];
+						b[0] = rs.getString("DESCRICAO");
+						cmbSexo.add(b);
+						rs.next();
+					}
+				} finally {
+					if (lb != null)
+						lb.closeAll();
+
+				}
+			} catch (Exception e) {
+				Auxiliares.messagebox("ERRO", "Erro carregaCmbSexo\n" + e);
+
+			}
+
+		}
+	}
+	
+	public void carregaCmbRaca() {
+		{
+			String sql = "";
+			LitebasePack lb = null;
+			ResultSet rs = null;
+
+			try {
+				try {
+					lb = new LitebasePack();
+					sql = " SELECT DESCRICAO FROM RACA";
+
+					rs = lb.executeQuery(sql);
+					rs.first();
+					for (int i = 0; rs.getRowCount() > i; i++) {
+						String[] b = new String[1];
+						b[0] = rs.getString("DESCRICAO");
+						cmbRaca.add(b);
+						rs.next();
+					}
+				} finally {
+					if (lb != null)
+						lb.closeAll();
+
+				}
+			} catch (Exception e) {
+				Auxiliares.messagebox("ERRO", "Erro carregaCmbSexo\n" + e);
+
+			}
+
+		}
+	}
+	
+	public void carregaCmbStatus() {
+		{
+			String sql = "";
+			LitebasePack lb = null;
+			ResultSet rs = null;
+
+			try {
+				try {
+					lb = new LitebasePack();
+					sql = " SELECT DESCRICAO FROM STATUS";
+
+					rs = lb.executeQuery(sql);
+					rs.first();
+					for (int i = 0; rs.getRowCount() > i; i++) {
+						String[] b = new String[1];
+						b[0] = rs.getString("DESCRICAO");
+						cmbStatus.add(b);
+						rs.next();
+					}
+				} finally {
+					if (lb != null)
+						lb.closeAll();
+
+				}
+			} catch (Exception e) {
+				Auxiliares.messagebox("ERRO", "Erro carregaCmbSexo\n" + e);
+
+			}
+
+		}
+	}
+	
+	public void cadastraAnimal() {
+		String sql = "";
+		LitebasePack lb = null;
+
+		try {
+			Random random = new Random();
+			int codigo = random.nextInt(900);
+
+			lb = new LitebasePack();
+
+			sql = "INSERT INTO REBANHO " + "(" + " CODIGO, DESCRICAO, IDADE, SEXO, RACA, PESO, DATACOMPRA,"
+					+ " PRECOCOMPRA, " + " PRECOATUAL, " + " STATUS, " + " PASTAGEM " + ")" + " VALUES " + "( '"
+					+ codigo + "', '" + editDescricao.getText() + "', '" + editIdade.getText() + "', '"
+					+ cmbSexo.getSelectedItem() + "', '" + cmbRaca.getSelectedItem() + "', '" + 0 + "'" + "', '"
+					+ editDataCompra.getText() + "'" + "', '" + editPrecoCompra.getText() + "'" + "', '"
+					+ editPrecoAtual.getText() + "'" + "', '" + cmbStatus.getSelectedItem() + "', '"
+					+ editPastagem.getText() + ")";
+
+			lb.executeUpdate(sql);
+
+
+		} catch (Exception e) {
+			Auxiliares.messagebox("ERRO", "Erro ao cadastrarProdutoNoEstoque\n" + e);
+			return;
 		}
 
 	}
