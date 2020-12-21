@@ -1,0 +1,10 @@
+-------------> PORCENTAGEM <-----------
+
+--> Como descobrir a porcentagem de uma subtração?
+
+R- Neste caso deve se fazer uma simples regra de 3 para achar o percentual de 
+redução a ser aplicado. EX: (Carga tributária x 100)/alíquota da operação. 
+Usando as mesmas informações anteriores temos: 12*100 = 1200/18 = 66,67%, 
+esse é o percentual de redução que será aplicado sobre a base de cálculo
+
+------------------------------------------------------

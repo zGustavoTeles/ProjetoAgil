@@ -3,6 +3,8 @@ package com.menu;
 import com.auxiliares.Auxiliares;
 import litebase.ResultSet;
 import com.principal.Agil;
+import com.tabelaDeAnimais.TabelaDeAnimais;
+import com.vacinacao.Vacinacao;
 import totalcross.sys.Convert;
 import totalcross.sys.Settings;
 import totalcross.ui.Button;
@@ -14,14 +16,15 @@ import totalcross.ui.event.Event;
 import totalcross.ui.gfx.Color;
 import totalcross.ui.image.Image;
 import totalcross.util.Date;
-
 import com.bottom.BottomImg;
 import com.cadastroDeAnimais.CadastroDeAnimais;
 import com.litebase.LitebasePack;
+import com.loja.Loja;
+import com.medicacao.Medicacao;
 
 public class Menu extends totalcross.ui.Window {
 	
-	private Button						 btnPlanoContas;
+	private Button						 btnLoja;
 	private Button 						 btnCadClientes;
 	private Button						 btnCadFornecedor;
 	private Button						 btnContasPagar;
@@ -62,11 +65,11 @@ public class Menu extends totalcross.ui.Window {
 
 //----------Primeira Linha------------------------------------------------------------------------------------------------
 			
-			btnPlanoContas = BottomImg.imageWithText(new Image("img/contas.png"), "PLANO CONTAS", Button.BOTTOM);
-			add(btnPlanoContas, LEFT + 5, TOP + 60, SCREENSIZE + 14, SCREENSIZE + 15);
-			btnPlanoContas.setBackColor(0x1c355d);
-			btnPlanoContas.setForeColor(Color.WHITE);
-			btnPlanoContas.setFont(Auxiliares.getFontPequena());
+			btnLoja = BottomImg.imageWithText(new Image("img/loja.png"), "LOJA", Button.BOTTOM);
+			add(btnLoja, LEFT + 5, TOP + 60, SCREENSIZE + 14, SCREENSIZE + 15);
+			btnLoja.setBackColor(0x1c355d);
+			btnLoja.setForeColor(Color.WHITE);
+			btnLoja.setFont(Auxiliares.getFontPequena());
 			
 			btnCadClientes = BottomImg.imageWithText(new Image("img/clientes.png"), "CLIENTES", Button.BOTTOM);
 			add(btnCadClientes, AFTER, SAME, SCREENSIZE + 14, SCREENSIZE + 15);
@@ -225,7 +228,10 @@ public class Menu extends totalcross.ui.Window {
 			switch (evt.type) {
 			case ControlEvent.PRESSED:
 
-				if (evt.target == btnPlanoContas) {
+				if (evt.target == btnLoja) {
+					
+					Loja loja = new Loja();
+					loja.popup();
 
 				} else if (evt.target == btnCadClientes) {
 
@@ -241,6 +247,9 @@ public class Menu extends totalcross.ui.Window {
 				} else if (evt.target == btnPesagem) {
 
 				} else if (evt.target == btnMedicacao) {
+					
+					Medicacao medicacao = new Medicacao();
+					medicacao.popup();
 
 				} else if (evt.target == btnMovCaixa) {
 
@@ -251,8 +260,14 @@ public class Menu extends totalcross.ui.Window {
 				} else if (evt.target == btnContReceber) {
 
 				} else if (evt.target == btnTabelaAnimais) {
+					
+					TabelaDeAnimais tabelaDeAnimais = new TabelaDeAnimais();
+					tabelaDeAnimais.popup();
 
 				} else if (evt.target == btnVacinacao) {
+					
+					Vacinacao vacinacao = new Vacinacao();
+					vacinacao.popup();
 
 				} else if (evt.target == btnLista) {
 

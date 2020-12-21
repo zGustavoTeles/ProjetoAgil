@@ -1,4 +1,4 @@
-package com.cadastroDeAnimais;
+package com.tabelaDeAnimais;
 
 import com.agenda.Agenda;
 import com.auxiliares.Auxiliares;
@@ -8,6 +8,7 @@ import com.principal.Agil;
 import com.sun.org.apache.bcel.internal.generic.IDIV;
 
 import litebase.ResultSet;
+import totalcross.sys.Convert;
 import totalcross.sys.Settings;
 import totalcross.ui.Button;
 import totalcross.ui.ComboBox;
@@ -23,9 +24,9 @@ import totalcross.ui.image.Image;
 import totalcross.util.Date;
 import totalcross.util.Random;
 
-public class CadastroDeAnimais extends totalcross.ui.Window{
+public class AlterarAnimal extends totalcross.ui.Window{
 	
-    private Button							btnCadastrar;
+    private Button							btnAtualizar;
     private Button							btnDeletar;
     private Button							btnVoltar;
     
@@ -66,14 +67,15 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
     
 
 	
-	public CadastroDeAnimais(){ 
-		super("CADASTRO DE ANIMAIS", TAB_ONLY_BORDER);
+	public AlterarAnimal(){ 
+		super("ALTERAR ANIMAL (S)", TAB_ONLY_BORDER);
 		 setBackColor(0x1c355d);
 		 initUI();
 		 carregaCmbSexo();
 		 carregaCmbRaca();
 		 carregaCmbStatus();
 		 carregaCmbAlternativa(); 
+		 carregaInfoAnimal();
 	}
 	
 	public void initUI() {
@@ -246,10 +248,10 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			cmbRaiva.setBackColor(Color.WHITE);
 			cmbRaiva.setForeColor(0x1c355d);
 			
-			btnCadastrar = BottomImg.imageWithText(new Image("img/cadastrar.png"), "Cadastrar", Button.BOTTOM);
-			add(btnCadastrar, LEFT - 2, BOTTOM, SCREENSIZE + 18, SCREENSIZE + 15);
-			btnCadastrar.setBackColor(0x1c355d);
-			btnCadastrar.setForeColor(Color.WHITE);
+			btnAtualizar = BottomImg.imageWithText(new Image("img/alterar.png"), "Alterar", Button.BOTTOM);
+			add(btnAtualizar, LEFT - 2, BOTTOM, SCREENSIZE + 18, SCREENSIZE + 15);
+			btnAtualizar.setBackColor(0x1c355d);
+			btnAtualizar.setForeColor(Color.WHITE);
 
 			btnVoltar = BottomImg.imageWithText(new Image("img/sair.png"), "Voltar", Button.BOTTOM);
 			add(btnVoltar, RIGHT - 2, BOTTOM, SCREENSIZE + 18, SCREENSIZE + 15);
@@ -260,7 +262,7 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			
 		} catch (Exception e) {
 
-			Auxiliares.messagebox("Erro", "construir a tela CadastrarUsuario");
+			Auxiliares.messagebox("Erro", "construir a tela AlterarAnimal");
 		}
 		
 	}
@@ -271,7 +273,7 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 			switch (evt.type) {
 			case ControlEvent.PRESSED:
 
-				if (evt.target == btnCadastrar) {
+				if (evt.target == btnAtualizar) {
 
 					if (!editDescricao.getText().equals("") && !editQuantidade.getText().equals("")
 							&& !editIdade.getText().equals("") && !cmbSexo.getSelectedItem().toString().equals("")
@@ -299,7 +301,7 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 
 						String[] ArtButtonArray = { "Sim", "Não" };
 
-						int i = Auxiliares.messageBox("AGIL", "Deseja cadastrar esse animal(s)?", ArtButtonArray);
+						int i = Auxiliares.messageBox("AGIL", "Deseja atualizar esse cadastro de animal(s)?", ArtButtonArray);
 
 						if (i == 1) {
 							return;
@@ -307,7 +309,7 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 						} else {
 							cadastraAnimal();
 
-							Auxiliares.messagebox("AGIL", "Animal(s) cadastro com sucesso!");
+							Auxiliares.messagebox("AGIL", "Cadastro de animal(s) atualizado com sucesso!");
 
 							editDescricao.setText("");
 							editQuantidade.setText("");
@@ -326,8 +328,12 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 							carregaCmbRaca();
 							carregaCmbStatus();
 							carregaCmbAlternativa();
-
+							
+							TabelaDeAnimais.buscaAnimaisCadastrados();
+							
+							unpop();
 						}
+						
 					} else {
 						Auxiliares.messagebox("AGIL", "Por favor preencha todos os campos!");
 					}
@@ -482,6 +488,100 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 		}
 	}
 	
+	public void carregaInfoAnimal() {
+		{
+			String sql = "";
+			LitebasePack lb = null;
+			ResultSet rs = null;
+
+			try {
+				try {
+					lb = new LitebasePack();
+					sql = " SELECT * FROM REBANHO "
+						+ " WHERE CODIGO = " + TabelaDeAnimais.codigoRebanho;
+
+					rs = lb.executeQuery(sql);
+					rs.first();
+					
+					editDescricao.setText(rs.getString("DESCRICAO"));
+					editQuantidade.setText(Convert.toString(rs.getInt("QUANTIDADE")));
+					editIdade.setText(rs.getString("IDADE"));				
+					
+					if (rs.getString("SEXO").equals("MACHO")) {
+						cmbSexo.setSelectedIndex(0);
+					} else {
+						cmbSexo.setSelectedIndex(1);
+					}
+					
+					if (rs.getString("RACA").equals("GIROLANDO")) {
+						cmbRaca.setSelectedIndex(0);
+
+					} else if (rs.getString("RACA").equals("GUZERA")) {
+						cmbRaca.setSelectedIndex(1);
+
+					} else if (rs.getString("RACA").equals("HOLANDES")) {
+						cmbRaca.setSelectedIndex(2);
+
+					} else if (rs.getString("RACA").equals("NELORE")) {
+						cmbRaca.setSelectedIndex(3);
+
+					} else if (rs.getString("RACA").equals("SENEPOL")) {
+						cmbRaca.setSelectedIndex(4);
+
+					} else if (rs.getString("RACA").equals("CHAROLES")) {
+						cmbRaca.setSelectedIndex(5);
+
+					} else if (rs.getString("RACA").equals("SINDI")) {
+						cmbRaca.setSelectedIndex(6);
+
+					} else {
+						cmbRaca.setSelectedIndex(7);
+					}
+					
+					editDataCompra.setText(rs.getString("DATACOMPRA"));
+					editPrecoCompra.setText(rs.getString("PRECOCOMPRA"));
+					editPrecoAtual.setText(rs.getString("PRECOATUAL"));
+					
+					if (rs.getString("STATUS").equals("ATIVO")) {
+						cmbStatus.setSelectedIndex(0);
+
+					} else if (rs.getString("STATUS").equals("VENDIDO")) {
+						cmbRaca.setSelectedIndex(1);
+
+					} else {
+						cmbRaca.setSelectedIndex(2);
+					}
+					
+					editPastagem.setText(rs.getString("PASTAGEM"));
+					
+					if (rs.getString("AFTOSA").equals("VACINOU")) {
+						cmbAftosa.setSelectedIndex(0);
+
+					} else {
+						cmbAftosa.setSelectedIndex(1);
+					}
+					
+					if (rs.getString("RAIVA").equals("VACINOU")) {
+						cmbRaiva.setSelectedIndex(0);
+
+					} else {
+						cmbRaiva.setSelectedIndex(1);
+					}
+					
+					
+				} finally {
+					if (lb != null)
+						lb.closeAll();
+
+				}
+			} catch (Exception e) {
+				Auxiliares.messagebox("ERRO", "Erro carregaCmbAlternativa\n" + e);
+
+			}
+
+		}
+	}
+	
 	public void cadastraAnimal() {
 		
 		String sql 					= "";	
@@ -489,25 +589,36 @@ public class CadastroDeAnimais extends totalcross.ui.Window{
 		String dataCompra  			= "";
 
 		try {
-			Random random = new Random();
-			int codigo = random.nextInt(900);
-			dataCompra = new Date(editDataCompra.getText()).toString(Settings.DATE_DMY);
+			
+			dataCompra    = new Date(editDataCompra.getText()).toString(Settings.DATE_DMY);
 
 			lb = new LitebasePack();
 
+			/*
+			 * Primeiro deleto as informações dos animais
+			 */
+
+			sql = " DELETE FROM REBANHO " + " WHERE CODIGO = " + TabelaDeAnimais.codigoRebanho;
+
+			lb.executeUpdate(sql);
+
+			/*
+			 * Depois insiro novamente com os dados atualizado
+			 */
+
 			sql = "INSERT INTO REBANHO " + "(" + " CODIGO, DESCRICAO, QUANTIDADE, IDADE, SEXO, RACA, PESO, DATACOMPRA,"
 					+ " PRECOCOMPRA, " + " PRECOATUAL, " + " STATUS, " + " PASTAGEM, " + "AFTOSA, " + "RAIVA " + ")"
-					+ " VALUES " + "( '" + codigo + "', '" + editDescricao.getText() + "', '" 
-					+ editQuantidade.getText() + "', '" + editIdade.getText() + "', '" + cmbSexo.getSelectedItem()
-					+ "', '" + cmbRaca.getSelectedItem() + "', '" + 0 + "'" + ", '" + dataCompra + "'" + ", '"
-					+ editPrecoCompra.getText() + "'" + ", '" + editPrecoAtual.getText() + "'" + ", '"
-					+ cmbStatus.getSelectedItem() + "', '" + editPastagem.getText() + "'" + ", '"
+					+ " VALUES " + "( '" + TabelaDeAnimais.codigoRebanho + "', '" + editDescricao.getText() + "', '"
+					+ editQuantidade.getText() + "', '" + editIdade.getText() + "', '"  + cmbSexo.getSelectedItem() 
+					+ "', '" + cmbRaca.getSelectedItem() + "', '" + 0 + "'" + ", '"
+					+ dataCompra + "'" + ", '" + editPrecoCompra.getText() + "'" + ", '" + editPrecoAtual.getText()
+					+ "'" + ", '" + cmbStatus.getSelectedItem() + "', '" + editPastagem.getText() + "'" + ", '"
 					+ cmbAftosa.getSelectedItem() + "'" + ", '" + cmbRaiva.getSelectedItem() + "'" + ")";
 
 			lb.executeUpdate(sql);
 
 		} catch (Exception e) {
-			Auxiliares.messagebox("ERRO", "Erro ao cadastraAnimal\n" + e);
+			Auxiliares.messagebox("ERRO", "Erro ao cadastrarProdutoNoEstoque\n" + e);
 			return;
 		}
 

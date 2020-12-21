@@ -12,13 +12,13 @@ import totalcross.ui.image.Image;
 public class Auxiliares {
 	
 	
-	public static final String NOMEAPP       = "Solucao";
+	public static final String NOMEAPP       = "ALGIL";
 	public static final String VERSAO		 = "1.0";
 	public static final String TELEFONE 	 = "(62) 9259-7360";
 	public static final String NOMESISTEMA   = "AGIL-PC";
 	public static final String DESCRICAO     = "Copyright©2020-Todos os direitos reservados";
 	public static final String ADM			 = "true";
-	public static final String SENHAADM		 = "solucao@2031";
+	public static final String SENHAADM		 = "agil@2031";
 
 	public static  String NOMEUSUARIO		 = "";
 
@@ -62,7 +62,7 @@ public class Auxiliares {
 	public static int messagebox(String titulo, String msg) {
 		msg = Convert.insertLineBreak(2 * (Settings.screenWidth / 4), MainWindow.getMainWindow().fm, msg);
 		MessageBox amb = new MessageBox(titulo, msg);
-		amb.setRect(Container.CENTER, Container.CENTER, Container.SCREENSIZE + 60, Container.SCREENSIZE + 50);
+		amb.setRect(Container.CENTER, Container.CENTER, Container.SCREENSIZE + 60, Container.SCREENSIZE + 60);
 		amb.popup();
 		return amb.getPressedButonIndex();
 	}
@@ -70,7 +70,7 @@ public class Auxiliares {
 	public static int messageBox(String titulo, String msg, String[] captions) {
 		msg = Convert.insertLineBreak(2 * (Settings.screenWidth / 4), MainWindow.getMainWindow().fm, msg);
 		MessageBox amb = new MessageBox(titulo, msg, captions);
-		amb.setRect(Container.CENTER, Container.CENTER, Container.SCREENSIZE + 50, Container.SCREENSIZE + 60);
+		amb.setRect(Container.CENTER, Container.CENTER, Container.SCREENSIZE + 60, Container.SCREENSIZE + 60);
 		amb.popup();
 		return amb.getPressedButonIndex();
 	}

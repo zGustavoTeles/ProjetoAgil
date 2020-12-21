@@ -68,10 +68,10 @@ public class Tabelas {
 //--------------------------------------------------------------------------------------------------------------------------------------	
 				if (!lb.exists("REBANHO")) {
 
-					sql = " create table rebanho ( " + "codigo int," + " descricao char(80), " + " idade int,"
-							+ " sexo char(20), " + " raca char(50), " + " peso char(30), " + " datacompra date, "
+					sql = " create table rebanho ( " + "codigo int," + " descricao char(80), " + " quantidade int, " + " idade char(40),"
+							+ " sexo char(20), " + " raca char(50), " + " peso char(30), " + " datacompra char(30), "
 							+ " precoCompra char(30)," + " precoAtual char(30), " + " status char(20), "
-							+ " pastagem char(20) " + ")";
+							+ " pastagem char(20), " + " aftosa char(20), " + " raiva char(20) " + ")";
 
 					lb.execute(sql);
 					lb.execute("create index rebanho01 ON rebanho(codigo,descricao)");
@@ -170,6 +170,23 @@ public class Tabelas {
 					sql = " INSERT INTO status (codigo, descricao)" + " VALUES " + " ('3', 'MORTO')";
 
 					lb.executeUpdate(sql);
+				}
+//------------------------------------------------------------------------------------------------------------------------------------
+				if (!lb.exists("ALTERNATIVA")) {
+
+					sql = " create table alternativa ( " + "codigo int," + " descricao char(20) " + ")";
+
+					lb.execute(sql);
+					lb.execute("create index alternativa01 ON alternativa(codigo,descricao)");
+
+					sql = " INSERT INTO alternativa (codigo, descricao)" + " VALUES " + " ('1', 'VACINOU')";
+
+					lb.executeUpdate(sql);
+					
+					sql = " INSERT INTO alternativa (codigo, descricao)" + " VALUES " + " ('2', 'NAO VACINOU')";
+
+					lb.executeUpdate(sql);
+					
 				}
 				
 //-------------------------------------------------------------------------------------------------------------------------------------
