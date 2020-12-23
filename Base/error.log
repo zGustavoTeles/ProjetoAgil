@@ -1,7 +1,17 @@
-2744 - Exception: class litebase.DriverException
-Message: Cannot access the file because it is already in use
+8317 - Exception: class litebase.SQLParseException
+Message: Incompatible types
 Stack trace:
-litebase.DriverException: Cannot access the file because it is already in use
+litebase.SQLParseException: Incompatible types
+litebase.o.d(Unknown Source)
+litebase.o.c(Unknown Source)
+litebase.o.c(Unknown Source)
+litebase.o.c(Unknown Source)
+litebase.o.c(Unknown Source)
+litebase.o.c(Unknown Source)
+litebase.o.c(Unknown Source)
+litebase.n.a(Unknown Source)
+litebase.x.a(Unknown Source)
+litebase.x.a(Unknown Source)
 litebase.LitebaseConnection.executeQuery(Unknown Source)
 samples.apps.sqlconsole.SQLConsole.processSQL(SQLConsole.java:353)
 samples.apps.sqlconsole.SQLConsole.execute(SQLConsole.java:456)
@@ -16,48 +26,26 @@ totalcross.ui.Window._postEvent(Window.java:1012)
 totalcross.TCEventThread.privatePumpEvents(TCEventThread.java:92)
 totalcross.TCEventThread.run(TCEventThread.java:51)
 
-11765 - Exception: class litebase.SQLParseException
-Message: Invalid date. Day: 1122020, month: 0, year: 2000
+35930 - Exception: class litebase.SQLParseException
+Message: Error: Syntax error. Near position 173.
 Stack trace:
-litebase.SQLParseException: Invalid date. Day: 1122020, month: 0, year: 2000
-litebase.LitebaseConnection.executeUpdate(Unknown Source)
-samples.apps.sqlconsole.SQLConsole.processSQL(SQLConsole.java:425)
-samples.apps.sqlconsole.SQLConsole.execute(SQLConsole.java:456)
-samples.apps.sqlconsole.SQLConsole.onEvent(SQLConsole.java:534)
-totalcross.ui.Control._onEvent(Control.java:1478)
-totalcross.ui.Control.postEvent(Control.java:1101)
-totalcross.ui.Control.postPressedEvent(Control.java:436)
-totalcross.ui.Button.onEvent(Button.java:470)
-totalcross.ui.Control._onEvent(Control.java:1478)
-totalcross.ui.Control.postEvent(Control.java:1101)
-totalcross.ui.Window._postEvent(Window.java:1012)
-totalcross.TCEventThread.privatePumpEvents(TCEventThread.java:92)
-totalcross.TCEventThread.run(TCEventThread.java:51)
-
-37997 - Exception: class litebase.SQLParseException
-Message: Error: 8 MESES is not a valid integer value.
-Stack trace:
-litebase.SQLParseException: Error: 8 MESES is not a valid integer value.
-litebase.LitebaseConnection.executeUpdate(Unknown Source)
-samples.apps.sqlconsole.SQLConsole.processSQL(SQLConsole.java:425)
-samples.apps.sqlconsole.SQLConsole.execute(SQLConsole.java:456)
-samples.apps.sqlconsole.SQLConsole.onEvent(SQLConsole.java:534)
-totalcross.ui.Control._onEvent(Control.java:1478)
-totalcross.ui.Control.postEvent(Control.java:1101)
-totalcross.ui.Control.postPressedEvent(Control.java:436)
-totalcross.ui.Button.onEvent(Button.java:470)
-totalcross.ui.Control._onEvent(Control.java:1478)
-totalcross.ui.Control.postEvent(Control.java:1101)
-totalcross.ui.Window._postEvent(Window.java:1012)
-totalcross.TCEventThread.privatePumpEvents(TCEventThread.java:92)
-totalcross.TCEventThread.run(TCEventThread.java:51)
-
-44365 - Exception: class litebase.SQLParseException
-Message: Error: 8 MESES is not a valid integer value.
-Stack trace:
-litebase.SQLParseException: Error: 8 MESES is not a valid integer value.
-litebase.LitebaseConnection.executeUpdate(Unknown Source)
-samples.apps.sqlconsole.SQLConsole.processSQL(SQLConsole.java:425)
+litebase.SQLParseException: Error: Syntax error. Near position 173.
+litebase.g.a(Unknown Source)
+litebase.e.a(Unknown Source)
+litebase.g.a(Unknown Source)
+litebase.g.c(Unknown Source)
+litebase.g.b(Unknown Source)
+litebase.g.a(Unknown Source)
+litebase.g.a(Unknown Source)
+litebase.g.a(Unknown Source)
+litebase.g.a(Unknown Source)
+litebase.g.a(Unknown Source)
+litebase.g.a(Unknown Source)
+litebase.g.j(Unknown Source)
+litebase.g.a(Unknown Source)
+litebase.g.a(Unknown Source)
+litebase.LitebaseConnection.executeQuery(Unknown Source)
+samples.apps.sqlconsole.SQLConsole.processSQL(SQLConsole.java:353)
 samples.apps.sqlconsole.SQLConsole.execute(SQLConsole.java:456)
 samples.apps.sqlconsole.SQLConsole.onEvent(SQLConsole.java:534)
 totalcross.ui.Control._onEvent(Control.java:1478)

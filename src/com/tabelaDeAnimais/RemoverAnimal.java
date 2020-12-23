@@ -36,7 +36,7 @@ public class RemoverAnimal extends totalcross.ui.Window{
     public Label 							lblPeso;
     public Label 							lblDataCompra;
     public Label 							lblPrecoCompra;
-    public Label 							lblPrecoAtual;
+    public Label 							lblPrecoVenda;
     public Label 							lblVendaPerda;
 //    public Label 							lblMesesAtual;
 //    public Label 							lblCategoriaMeses;
@@ -50,7 +50,7 @@ public class RemoverAnimal extends totalcross.ui.Window{
     
     public Edit 							editDescricao;
     public Edit								editPrecoCompra;
-    public Edit								editPrecoAtual;
+    public Edit								editPrecoVenda;
     public Edit								editDataCompra;
     public Edit								editPastagem;
     public Edit								editIdade;
@@ -147,22 +147,22 @@ public class RemoverAnimal extends totalcross.ui.Window{
 			editPrecoCompra.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblPrecoCompra);
 			editPrecoCompra.setBackColor(Color.WHITE);
 			editPrecoCompra.setForeColor(0x1c355d);
-			editPrecoCompra.setValidChars("0123456789,.");
+			editPrecoCompra.setValidChars("0123456789.");
 			editPrecoCompra.setEnabled(false);
 			
-			lblPrecoAtual = new Label("PREÇO ATUAL:");
-			add(lblPrecoAtual);
-			lblPrecoAtual.setRect(LEFT + 180, AFTER + 10, PREFERRED, PREFERRED);
-			lblPrecoAtual.setForeColor(Color.WHITE);
-			lblPrecoAtual.setFont(Auxiliares.getFontBold());
+			lblPrecoVenda = new Label("PREÇO DE VENDA:");
+			add(lblPrecoVenda);
+			lblPrecoVenda.setRect(LEFT + 180, AFTER + 10, PREFERRED, PREFERRED);
+			lblPrecoVenda.setForeColor(Color.WHITE);
+			lblPrecoVenda.setFont(Auxiliares.getFontBold());
 			
-			editPrecoAtual = new Edit();			
-			add(editPrecoAtual);
-			editPrecoAtual.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblPrecoAtual);
-			editPrecoAtual.setBackColor(Color.WHITE);
-			editPrecoAtual.setForeColor(0x1c355d);
-			editPrecoAtual.setValidChars("0123456789,.");
-			editPrecoAtual.setEnabled(false);
+			editPrecoVenda = new Edit();			
+			add(editPrecoVenda);
+			editPrecoVenda.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblPrecoVenda);
+			editPrecoVenda.setBackColor(Color.WHITE);
+			editPrecoVenda.setForeColor(0x1c355d);
+			editPrecoVenda.setValidChars("0123456789.");
+			editPrecoVenda.setEnabled(false);
 			
 			lblPastagem = new Label("PASTAGEM:");
 			add(lblPastagem);
@@ -216,6 +216,7 @@ public class RemoverAnimal extends totalcross.ui.Window{
             btnVoltar.setForeColor(Color.WHITE);
 
 			reposition();
+			editQuantidade.requestFocus();
 			
 		} catch (Exception e) {
 
@@ -273,7 +274,7 @@ public class RemoverAnimal extends totalcross.ui.Window{
 							editIdade.setText("");
 							editDataCompra.setText("");
 							editPrecoCompra.setText("");
-							editPrecoAtual.setText("");
+							editPrecoVenda.setText("");
 							editPastagem.setText("");
 
 							TabelaDeAnimais.buscaAnimaisCadastrados();
@@ -331,7 +332,7 @@ public class RemoverAnimal extends totalcross.ui.Window{
 					editIdade.setText(rs.getString("IDADE"));
 					editDataCompra.setText(rs.getString("DATACOMPRA"));
 					editPrecoCompra.setText(rs.getString("PRECOCOMPRA"));
-					editPrecoAtual.setText(rs.getString("PRECOATUAL"));
+					editPrecoVenda.setText(rs.getString("PRECOVENDA"));
 					editPastagem.setText(rs.getString("PASTAGEM"));
 					editRebanho.setText(Convert.toString(rs.getInt("QUANTIDADE")));
 					

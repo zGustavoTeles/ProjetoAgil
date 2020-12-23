@@ -173,64 +173,67 @@ public class Medicacao extends totalcross.ui.Window {
 
 					rs = lb.executeQuery(sql);
 					rs.first();
-
-					/*
-					 * Primeiro zero os valores
-					 */
-
-					qntVacinadosAftosa 			= 0.0;
-					qntVacinadosRaiva 			= 0.0;
-					qntNaoVacinadosAftosa 		= 0.0;
-					qntNaoVacinadosRaiva 		= 0.0;
-					qntTotalVacinadosAftosa 	= 0.0;
-					qntTotalVacinadosRaiva 		= 0.0;
-					qntTotalVacinadosAftosaInt  = 0;
-					qntTotalVacinadosRaivaInt   = 0;
-
-					for (int i = 0; rs.getRowCount() > i; i++) {
-						String[] b = new String[4];
-						b[0] = rs.getString("DESCRICAO");
-						b[1] = rs.getString("RACA");
-						b[2] = rs.getString("AFTOSA");
-						b[3] = rs.getString("RAIVA");
-						gridAnimais.add(b);
+					
+					if (rs.getRowCount() > 0) {
 
 						/*
-						 * calculo os valor de vacinados e não vacinados
+						 * Primeiro zero os valores
 						 */
 
-						if (rs.getString("AFTOSA").equals("VACINOU")) {
-							qntVacinadosAftosa++;
+						qntVacinadosAftosa 			= 0.0;
+						qntVacinadosRaiva 			= 0.0;
+						qntNaoVacinadosAftosa 		= 0.0;
+						qntNaoVacinadosRaiva 		= 0.0;
+						qntTotalVacinadosAftosa 	= 0.0;
+						qntTotalVacinadosRaiva 		= 0.0;
+						qntTotalVacinadosAftosaInt 	= 0;
+						qntTotalVacinadosRaivaInt 	= 0;
 
-						} else {
-							qntNaoVacinadosAftosa++;
+						for (int i = 0; rs.getRowCount() > i; i++) {
+							String[] b = new String[4];
+							b[0] = rs.getString("DESCRICAO");
+							b[1] = rs.getString("RACA");
+							b[2] = rs.getString("AFTOSA");
+							b[3] = rs.getString("RAIVA");
+							gridAnimais.add(b);
+
+							/*
+							 * calculo os valor de vacinados e não vacinados
+							 */
+
+							if (rs.getString("AFTOSA").equals("VACINOU")) {
+								qntVacinadosAftosa++;
+
+							} else {
+								qntNaoVacinadosAftosa++;
+							}
+
+							if (rs.getString("RAIVA").equals("VACINOU")) {
+								qntVacinadosRaiva++;
+
+							} else {
+								qntNaoVacinadosRaiva++;
+							}
+
+							rs.next();
 						}
 
-						if (rs.getString("RAIVA").equals("VACINOU")) {
-							qntVacinadosRaiva++;
+						/*
+						 * calculo a porcentagem de vacinados e não vacinados
+						 */
 
-						} else {
-							qntNaoVacinadosRaiva++;
-						}
+						qntTotalAftosa = (int) (qntNaoVacinadosAftosa + qntVacinadosAftosa);
+						qntTotalVacinadosAftosa = (qntVacinadosAftosa * 100 / qntTotalAftosa);
 
-						rs.next();
+						qntTotalRaiva = (int) (qntNaoVacinadosRaiva + qntVacinadosRaiva);
+						qntTotalVacinadosRaiva = (qntVacinadosRaiva * 100 / qntTotalRaiva);
+
+						qntTotalVacinadosAftosaInt = Convert.toInt(Convert.toString(qntTotalVacinadosAftosa)
+								.substring(0, Convert.toString(qntTotalVacinadosAftosa).indexOf(".")));
+						qntTotalVacinadosRaivaInt = Convert.toInt(Convert.toString(qntTotalVacinadosRaiva).substring(0,
+								Convert.toString(qntTotalVacinadosRaiva).indexOf(".")));
+
 					}
-
-					/*
-					 * calculo a porcentagem de vacinados e não vacinados
-					 */
-
-					qntTotalAftosa = (int) (qntNaoVacinadosAftosa + qntVacinadosAftosa);
-					qntTotalVacinadosAftosa = (qntVacinadosAftosa * 100 / qntTotalAftosa);
-
-					qntTotalRaiva = (int) (qntNaoVacinadosRaiva + qntVacinadosRaiva);
-					qntTotalVacinadosRaiva = (qntVacinadosRaiva * 100 / qntTotalRaiva);
-
-					qntTotalVacinadosAftosaInt = Convert.toInt(Convert.toString(qntTotalVacinadosAftosa).substring(0,
-							Convert.toString(qntTotalVacinadosAftosa).indexOf(".")));
-					qntTotalVacinadosRaivaInt = Convert.toInt(Convert.toString(qntTotalVacinadosRaiva).substring(0,
-							Convert.toString(qntTotalVacinadosRaiva).indexOf(".")));
-
 				}
 
 			} finally {

@@ -70,7 +70,7 @@ public class Tabelas {
 
 					sql = " create table rebanho ( " + "codigo int," + " descricao char(80), " + " quantidade int, " + " idade char(40),"
 							+ " sexo char(20), " + " raca char(50), " + " peso char(30), " + " datacompra char(30), "
-							+ " precoCompra char(30)," + " precoAtual char(30), " + " status char(20), "
+							+ " precoCompra char(30)," + " precovenda char(30), " + " status char(20), "
 							+ " pastagem char(20), " + " aftosa char(20), " + " raiva char(20) " + ")";
 
 					lb.execute(sql);
@@ -187,6 +187,36 @@ public class Tabelas {
 
 					lb.executeUpdate(sql);
 					
+				}
+				
+//-------------------------------------------------------------------------------------------------------------------------------------
+				
+				if (!lb.exists("VENDAANIMAL")) {
+
+					sql = " create table vendaanimal ( " + "codigoanimal int," + " descricao char(80), " + " idade char(40),"
+							+ " sexo char(20), " + " raca char(50), " + " peso char(30), " + " datacompra char(30), " 
+							+ " precocompra char(30)," + " precovenda char(30)," + " status char(20), " + " pastagem char(20), " + " aftosa char(20), " 
+							+ " raiva char(20), " + " codigovenda int, " + " totalvenda char(30), " + " quantidade int, " 
+							+ " tipopagamento char(30), " + " datavenda char (30) " +")";
+
+					lb.execute(sql);
+					lb.execute("create index vendaanimal01 ON vendaanimal(codigovenda,descricao)");
+
+				}
+				
+//-------------------------------------------------------------------------------------------------------------------------------------
+				
+				if (!lb.exists("VENDAANIMALTEMP")) {
+
+					sql = " create table vendaanimaltemp ( " + "codigoanimal int," + " descricao char(80), " + " idade char(40),"
+							+ " sexo char(20), " + " raca char(50), " + " peso char(30), " + " datacompra char(30), " 
+							+ " precocompra char(30)," + " precovenda char(30)," + " status char(20), " + " pastagem char(20), " + " aftosa char(20), " 
+							+ " raiva char(20), " + " codigovenda int, " + " totalvenda char(30), " + " quantidade int, " 
+							+ " tipopagamento char(30), " + " datavenda char (30) " +")";
+
+					lb.execute(sql);
+					lb.execute("create index vendaanimaltemp01 ON vendaanimaltemp(codigovenda,descricao)");
+
 				}
 				
 //-------------------------------------------------------------------------------------------------------------------------------------

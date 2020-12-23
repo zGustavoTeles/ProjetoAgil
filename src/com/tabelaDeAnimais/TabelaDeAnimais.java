@@ -186,7 +186,7 @@ public class TabelaDeAnimais extends totalcross.ui.Window {
 						b[6] = rs.getString("PESO");
 						b[7] = rs.getString("DATACOMPRA");
 						b[8] = rs.getString("PRECOCOMPRA");
-						b[9] = rs.getString("PRECOATUAL");
+						b[9] = rs.getString("PRECOVENDA");
 						b[10] = rs.getString("STATUS");
 						b[11] = rs.getString("PASTAGEM");
 						b[12] = rs.getString("AFTOSA");

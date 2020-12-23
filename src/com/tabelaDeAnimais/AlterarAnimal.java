@@ -37,8 +37,7 @@ public class AlterarAnimal extends totalcross.ui.Window{
     public Label 							lblPeso;
     public Label 							lblDataCompra;
     public Label 							lblPrecoCompra;
-    public Label 							lblPrecoAtual;
-    public Label 							lblVendaPerda;
+    public Label 							lblPrecoVenda;
 //    public Label 							lblMesesAtual;
 //    public Label 							lblCategoriaMeses;
     public Label 							lblStatus;
@@ -50,7 +49,7 @@ public class AlterarAnimal extends totalcross.ui.Window{
     
     public Edit 							editDescricao;
     public Edit								editPrecoCompra;
-    public Edit								editPrecoAtual;
+    public Edit								editPrecoVenda;
     public Edit								editDataCompra;
     public Edit								editPastagem;
     public Edit								editIdade;
@@ -94,6 +93,7 @@ public class AlterarAnimal extends totalcross.ui.Window{
 			editDescricao.setBackColor(Color.WHITE);
 			editDescricao.setForeColor(0x1c355d);
 			editDescricao.capitalise = (Edit.ALL_UPPER);
+			editDescricao.setValidChars("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 3 4 5 6 7 8 9 0");
 			
 			lblQuantidade = new Label("QUANTIDADE:");
 			add(lblQuantidade);
@@ -120,6 +120,7 @@ public class AlterarAnimal extends totalcross.ui.Window{
 			editIdade.setBackColor(Color.WHITE);
 			editIdade.setForeColor(0x1c355d);
 			editIdade.capitalise = (Edit.ALL_UPPER);
+			editIdade.setValidChars("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 3 4 5 6 7 8 9 0");
 			
 			lblSexo = new Label("SEXO:");
 			add(lblSexo);
@@ -184,20 +185,20 @@ public class AlterarAnimal extends totalcross.ui.Window{
 			editPrecoCompra.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblPrecoCompra);
 			editPrecoCompra.setBackColor(Color.WHITE);
 			editPrecoCompra.setForeColor(0x1c355d);
-			editPrecoCompra.setValidChars("0123456789,.");
+			editPrecoCompra.setValidChars("0123456789,");
 			
-			lblPrecoAtual = new Label("PREÇO ATUAL:");
-			add(lblPrecoAtual);
-			lblPrecoAtual.setRect(LEFT + 180, AFTER + 10, PREFERRED, PREFERRED);
-			lblPrecoAtual.setForeColor(Color.WHITE);
-			lblPrecoAtual.setFont(Auxiliares.getFontBold());
+			lblPrecoVenda = new Label("PREÇO DE VENDA:");
+			add(lblPrecoVenda);
+			lblPrecoVenda.setRect(LEFT + 180, AFTER + 10, PREFERRED, PREFERRED);
+			lblPrecoVenda.setForeColor(Color.WHITE);
+			lblPrecoVenda.setFont(Auxiliares.getFontBold());
 			
-			editPrecoAtual = new Edit();			
-			add(editPrecoAtual);
-			editPrecoAtual.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblPrecoAtual);
-			editPrecoAtual.setBackColor(Color.WHITE);
-			editPrecoAtual.setForeColor(0x1c355d);
-			editPrecoAtual.setValidChars("0123456789,.");
+			editPrecoVenda = new Edit();			
+			add(editPrecoVenda);
+			editPrecoVenda.setRect(CENTER + 100, SAME, SCREENSIZE + 40, SCREENSIZE + 4, lblPrecoVenda);
+			editPrecoVenda.setBackColor(Color.WHITE);
+			editPrecoVenda.setForeColor(0x1c355d);
+			editPrecoVenda.setValidChars("0123456789,");
 			
 			lblStatus = new Label("STATUS:");
 			add(lblStatus);
@@ -223,6 +224,7 @@ public class AlterarAnimal extends totalcross.ui.Window{
 			editPastagem.setBackColor(Color.WHITE);
 			editPastagem.setForeColor(0x1c355d);
 			editPastagem.capitalise = (Edit.ALL_UPPER);
+			editPastagem.setValidChars("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 3 4 5 6 7 8 9 0");
 			
 			lblAftosa = new Label("VACINA C/ AFTOSA:");
 			add(lblAftosa);
@@ -278,7 +280,7 @@ public class AlterarAnimal extends totalcross.ui.Window{
 					if (!editDescricao.getText().equals("") && !editQuantidade.getText().equals("")
 							&& !editIdade.getText().equals("") && !cmbSexo.getSelectedItem().toString().equals("")
 							&& !cmbRaca.getSelectedItem().toString().equals("") && !editDataCompra.getText().equals("")
-							&& !editPrecoCompra.getText().equals("") && !editPrecoAtual.getText().equals("")
+							&& !editPrecoCompra.getText().equals("") && !editPrecoVenda.getText().equals("")
 							&& !cmbStatus.getSelectedItem().toString().equals("") && !editPastagem.getText().equals("")
 							&& !cmbAftosa.getSelectedItem().toString().equals("")
 							&& !cmbRaiva.getSelectedItem().toString().equals("")) {
@@ -289,11 +291,11 @@ public class AlterarAnimal extends totalcross.ui.Window{
 								|| editPrecoCompra.getText().equals(".6") || editPrecoCompra.getText().equals(".7")
 								|| editPrecoCompra.getText().equals(".8") || editPrecoCompra.getText().equals(".9")
 
-								|| editPrecoAtual.getText().equals(".0") || editPrecoAtual.getText().equals(".1")
-								|| editPrecoAtual.getText().equals(".2") || editPrecoAtual.getText().equals(".3")
-								|| editPrecoAtual.getText().equals(".4") || editPrecoAtual.getText().equals(".5")
-								|| editPrecoAtual.getText().equals(".6") || editPrecoAtual.getText().equals(".7")
-								|| editPrecoAtual.getText().equals(".8") || editPrecoAtual.getText().equals(".9")) {
+								|| editPrecoVenda.getText().equals(".0") || editPrecoVenda.getText().equals(".1")
+								|| editPrecoVenda.getText().equals(".2") || editPrecoVenda.getText().equals(".3")
+								|| editPrecoVenda.getText().equals(".4") || editPrecoVenda.getText().equals(".5")
+								|| editPrecoVenda.getText().equals(".6") || editPrecoVenda.getText().equals(".7")
+								|| editPrecoVenda.getText().equals(".8") || editPrecoVenda.getText().equals(".9")) {
 
 							Auxiliares.messagebox("AGIL", "Valor inserido incorreto!\n tente '2.23', por exemplo... ");
 							return;
@@ -318,7 +320,7 @@ public class AlterarAnimal extends totalcross.ui.Window{
 							cmbRaca.removeAll();
 							editDataCompra.setText("");
 							editPrecoCompra.setText("");
-							editPrecoAtual.setText("");
+							editPrecoVenda.setText("");
 							cmbStatus.removeAll();
 							editPastagem.setText("");
 							cmbAftosa.removeAll();
@@ -540,7 +542,7 @@ public class AlterarAnimal extends totalcross.ui.Window{
 					
 					editDataCompra.setText(rs.getString("DATACOMPRA"));
 					editPrecoCompra.setText(rs.getString("PRECOCOMPRA"));
-					editPrecoAtual.setText(rs.getString("PRECOATUAL"));
+					editPrecoVenda.setText(rs.getString("PRECOVENDA"));
 					
 					if (rs.getString("STATUS").equals("ATIVO")) {
 						cmbStatus.setSelectedIndex(0);
@@ -607,11 +609,11 @@ public class AlterarAnimal extends totalcross.ui.Window{
 			 */
 
 			sql = "INSERT INTO REBANHO " + "(" + " CODIGO, DESCRICAO, QUANTIDADE, IDADE, SEXO, RACA, PESO, DATACOMPRA,"
-					+ " PRECOCOMPRA, " + " PRECOATUAL, " + " STATUS, " + " PASTAGEM, " + "AFTOSA, " + "RAIVA " + ")"
+					+ " PRECOVENDA, " + " PRECOVENDA, " + " STATUS, " + " PASTAGEM, " + "AFTOSA, " + "RAIVA " + ")"
 					+ " VALUES " + "( '" + TabelaDeAnimais.codigoRebanho + "', '" + editDescricao.getText() + "', '"
 					+ editQuantidade.getText() + "', '" + editIdade.getText() + "', '"  + cmbSexo.getSelectedItem() 
 					+ "', '" + cmbRaca.getSelectedItem() + "', '" + 0 + "'" + ", '"
-					+ dataCompra + "'" + ", '" + editPrecoCompra.getText() + "'" + ", '" + editPrecoAtual.getText()
+					+ dataCompra + "'" + ", '" + editPrecoCompra.getText() + "'" + ", '" + editPrecoVenda.getText()
 					+ "'" + ", '" + cmbStatus.getSelectedItem() + "', '" + editPastagem.getText() + "'" + ", '"
 					+ cmbAftosa.getSelectedItem() + "'" + ", '" + cmbRaiva.getSelectedItem() + "'" + ")";
 
