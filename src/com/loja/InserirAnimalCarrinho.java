@@ -75,7 +75,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 			imgInserirAnimalCarrinho = new ImageControl(new Image("img/inserirAnimalCarrinho.png"));
 			imgInserirAnimalCarrinho.scaleToFit = true;
 			imgInserirAnimalCarrinho.centerImage = true;
-			add(imgInserirAnimalCarrinho, LEFT + 10, TOP + 35, SCREENSIZE + 30, SCREENSIZE + 50);
+			add(imgInserirAnimalCarrinho, LEFT + 10, TOP + 50, SCREENSIZE + 35, SCREENSIZE + 55);
 			
 //			lblCategoria = new Label("CATEGORIA:   ");
 //			add(lblCategoria);
@@ -85,7 +85,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 
 			editDescricao = new Edit();
 			add(editDescricao);
-			editDescricao.setRect(CENTER + 150, TOP + 60, SCREENSIZE + 50, SCREENSIZE + 6, imgInserirAnimalCarrinho);
+			editDescricao.setRect(CENTER + 190, TOP + 70, SCREENSIZE + 50, SCREENSIZE + 6, imgInserirAnimalCarrinho);
 			editDescricao.setBackColor(Color.WHITE);
 			editDescricao.setForeColor(0x1c355d);
 			editDescricao.setText(descricao);
@@ -99,7 +99,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 
 			editRaca = new Edit();
 			add(editRaca);
-			editRaca.setRect(CENTER + 150, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editDescricao);
+			editRaca.setRect(CENTER + 190, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editDescricao);
 			editRaca.setBackColor(Color.WHITE);
 			editRaca.setForeColor(0x1c355d);
 			editRaca.setText(raca);
@@ -113,7 +113,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 
 			editIdade = new Edit();
 			add(editIdade);
-			editIdade.setRect(CENTER + 150, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editRaca);
+			editIdade.setRect(CENTER + 190, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editRaca);
 			editIdade.setBackColor(Color.WHITE);
 			editIdade.setForeColor(0x1c355d);
 			editIdade.setText(idade);
@@ -127,7 +127,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 
 			editPastagem = new Edit();
 			add(editPastagem);
-			editPastagem.setRect(CENTER + 150, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editDescricao);
+			editPastagem.setRect(CENTER + 190, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editDescricao);
 			editPastagem.setBackColor(Color.WHITE);
 			editPastagem.setForeColor(0x1c355d);
 			editPastagem.setText(pastagem);
@@ -141,7 +141,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 
 			editStatus = new Edit();
 			add(editStatus);
-			editStatus.setRect(CENTER + 150, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editPastagem);
+			editStatus.setRect(CENTER + 190, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editPastagem);
 			editStatus.setBackColor(Color.WHITE);
 			editStatus.setForeColor(0x1c355d);
 			editStatus.setText(status);
@@ -155,7 +155,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 
 			editDataDaCompra = new Edit();
 			add(editDataDaCompra);
-			editDataDaCompra.setRect(CENTER + 150, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editStatus);
+			editDataDaCompra.setRect(CENTER + 190, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editStatus);
 			editDataDaCompra.setBackColor(Color.WHITE);
 			editDataDaCompra.setForeColor(0x1c355d);
 			editDataDaCompra.setText(dataDaCompra);
@@ -163,7 +163,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 			
 			editRebanho = new Edit();
 			add(editRebanho);
-			editRebanho.setRect(CENTER + 150, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editDataDaCompra);
+			editRebanho.setRect(CENTER + 190, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editDataDaCompra);
 			editRebanho.setBackColor(Color.WHITE);
 			editRebanho.setForeColor(0x1c355d);
 			editRebanho.setText(Convert.toString(rebanho));
@@ -177,7 +177,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 
 			editQuantidade = new Edit();
 			add(editQuantidade);
-			editQuantidade.setRect(CENTER + 150, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editRebanho);
+			editQuantidade.setRect(CENTER + 190, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editRebanho);
 			editQuantidade.setBackColor(Color.WHITE);
 			editQuantidade.setForeColor(0x1c355d);
 			editQuantidade.setValidChars("0 1 2 3 4 5 6 7 8 9");
@@ -190,7 +190,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 
 			editValor = new Edit();
 			add(editValor);
-			editValor.setRect(CENTER + 150, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editQuantidade);
+			editValor.setRect(CENTER + 190, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editQuantidade);
 			editValor.setBackColor(Color.WHITE);
 			editValor.setForeColor(0x1c355d);
 			editValor.setText(precoVenda);
@@ -204,7 +204,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 
 			editTotal = new Edit();
 			add(editTotal);
-			editTotal.setRect(CENTER + 150, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editValor);
+			editTotal.setRect(CENTER + 190, AFTER, SCREENSIZE + 50, SCREENSIZE + 6, editValor);
 			editTotal.setBackColor(Color.WHITE);
 			editTotal.setForeColor(0x1c355d);
 			editTotal.setText("0.00");
@@ -212,7 +212,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 			
 			cmbTipoPagamento = new ComboBox();
 			add(cmbTipoPagamento);
-			cmbTipoPagamento.setRect(CENTER + 170, AFTER + 50, SCREENSIZE + 20, PREFERRED, editTotal);
+			cmbTipoPagamento.setRect(CENTER + 200, AFTER + 30, SCREENSIZE + 20, PREFERRED, editTotal);
 			
 			btnVoltar = BottomImg.imageWithText(new Image("img/sair.png"), "Voltar", Button.BOTTOM);
 			add(btnVoltar, RIGHT - 2, BOTTOM, SCREENSIZE + 25, PREFERRED + 10);
@@ -354,7 +354,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 					
 					String dataVenda;
 
-					dataVenda = Date.formatDate(day.getDay(), month.getMonth(), year.getYear());
+					dataVenda = Date.formatDate(year.getYear(), month.getMonth(), day.getDay());
 
 					sql = "INSERT INTO VENDAANIMALTEMP " + "("
 							+ " CODIGOANIMAL, DESCRICAO, IDADE, SEXO, RACA, PESO, DATACOMPRA, "
@@ -376,7 +376,7 @@ public class InserirAnimalCarrinho extends totalcross.ui.Window {
 					Date month = new Date();
 					Date day = new Date();
 
-					dataVenda = Date.formatDate(day.getDay(), month.getMonth(), year.getYear());
+					dataVenda = Date.formatDate(year.getYear(), month.getMonth(), day.getDay());
 
 					sql = "INSERT INTO VENDAANIMALTEMP " + "("
 							+ " CODIGOANIMAL, DESCRICAO, IDADE, SEXO, RACA, PESO, DATACOMPRA, "

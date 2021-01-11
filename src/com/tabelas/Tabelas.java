@@ -28,6 +28,10 @@ public class Tabelas {
 
 					lb.execute(sql);
 					lb.execute("create index usuario01 ON usuario(codigo, usuario,senha)");
+					
+					sql = " INSERT INTO usuario (codigo, usuario, senha, salvar_senha)" + " VALUES " + " ('1', 'admin', 'admin', 'S' )";
+
+					lb.executeUpdate(sql);
 				}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
@@ -197,7 +201,7 @@ public class Tabelas {
 							+ " sexo char(20), " + " raca char(50), " + " peso char(30), " + " datacompra char(30), " 
 							+ " precocompra char(30)," + " precovenda char(30)," + " status char(20), " + " pastagem char(20), " + " aftosa char(20), " 
 							+ " raiva char(20), " + " codigovenda int, " + " totalvenda char(30), " + " quantidade int, " 
-							+ " tipopagamento char(30), " + " datavenda char (30) " +")";
+							+ " tipopagamento char(30), " + " datavenda date" +")";
 
 					lb.execute(sql);
 					lb.execute("create index vendaanimal01 ON vendaanimal(codigovenda,descricao)");
@@ -212,7 +216,7 @@ public class Tabelas {
 							+ " sexo char(20), " + " raca char(50), " + " peso char(30), " + " datacompra char(30), " 
 							+ " precocompra char(30)," + " precovenda char(30)," + " status char(20), " + " pastagem char(20), " + " aftosa char(20), " 
 							+ " raiva char(20), " + " codigovenda int, " + " totalvenda char(30), " + " quantidade int, " 
-							+ " tipopagamento char(30), " + " datavenda char (30) " +")";
+							+ " tipopagamento char(30), " + " datavenda date " +")";
 
 					lb.execute(sql);
 					lb.execute("create index vendaanimaltemp01 ON vendaanimaltemp(codigovenda,descricao)");

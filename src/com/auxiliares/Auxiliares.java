@@ -5,6 +5,7 @@ import totalcross.sys.Convert;
 import totalcross.sys.Settings;
 import totalcross.ui.Container;
 import totalcross.ui.MainWindow;
+import totalcross.ui.dialog.InputBox;
 import totalcross.ui.font.Font;
 import totalcross.ui.gfx.Color;
 import totalcross.ui.image.Image;
@@ -73,6 +74,24 @@ public class Auxiliares {
 		amb.setRect(Container.CENTER, Container.CENTER, Container.SCREENSIZE + 60, Container.SCREENSIZE + 60);
 		amb.popup();
 		return amb.getPressedButonIndex();
+	}
+	
+	public static String messageInput(String titulo, String msg,
+			String textoDefault) {
+		InputBox inp_ = new InputBox(titulo, msg, textoDefault);
+		inp_.headerColor = Color.BLACK;
+		inp_.footerColor = Color.BLUE;
+		inp_.titleColor = Color.WHITE;
+		inp_.getEdit().setValidChars(
+				"@,._-1234567890qwertyuiopasdfghjkl�zxcvbnm");
+		inp_.repaintNow();
+		inp_.popup();
+		inp_.setBackForeColors(Color.BLUE, Color.BLUE);
+		if (inp_.getPressedButtonIndex() == 1) {
+			return "";
+		} else {
+			return inp_.getValue();
+		}
 	}
 	
 	public static Image getLogo() {

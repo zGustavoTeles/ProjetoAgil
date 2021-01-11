@@ -22,7 +22,6 @@ import totalcross.util.Date;
 
 public class Carrinho extends totalcross.ui.Window{
 	
-	private Label							lblCarrinho;
 	private Label							lblQuantidade;
 	private Label							lblTotal;
 	private Edit							editQntAnimais;
@@ -34,32 +33,41 @@ public class Carrinho extends totalcross.ui.Window{
 	public Grid							    gridCarrinho;
 	public ImageControl					    imgCarrinho;
 	
-	public int 					 			quantidadeEstoque = 0;
 	public int 						        qntEstoqueCalculo = 0;
 	public int  				 			quantidadeVendida = 0;
-	public int								codigo = 0;
-	public int								codigoProdTemp = 0;
-	public int 								codigoTemp;
 	public int								quantidadeCarrinho = 0;
 	public double							precoVendaAnimal;
 	public double							totalCarrinho = 0.0;
-	public Date 				 			dataEntrada;
-	public String							dataString;
-	public String							dataSaidaString;
-	public String							valorProduto;
 	
-	public String							produtoTemp;
-	public String							totalTemp;
-	public String							categoriaTemp;
-	public String							marcaTemp;
-	public String                           descricaoTemp;
-	public String							tipoPagamento;
-	public Date								dataSaidaTemp;
-	public int   							quantidadeTemp;
+	public int	 						 	codigoVendaInfo = 0;
+	public int	 				 			codigoAnimalInfo = 0;
+	public String 				 			descricaoInfo = "";
+	public String	 			 			idadeInfo = "";
+	public String 				 			sexoInfo = "";
+	public String 				 			racaInfo = "";
+	public String 				 			pesoInfo = "";
+	public String 				 			dataDaCompraInfo = "";
+	public String 				 			precocompraInfo = "";
+	public String 				 			precoVendaInfo = "";
+	public String 				 			statusInfo = "";
+	public String 				 			pastagemInfo = "";
+	public String 				 			aftosaInfo = "";
+	public String 				 			raivaInfo = "";
+	public int	 				 			quantidadeVendidaInfo = 0;
+	public String 				 			dataVendaInfo = "";
+	public String 				 			tipopagamentoInfo = "";
+	public String 				 			totalInfo = "";
+	public double 				 			totalInfoCalc = 0.00;
+	
+	public int								qntDeAnimaisVendidos = 0;
+	public double							valorTotalDevendas = 0.00;
+	
 	
 	public static String					codigoVenda = "";
+	public static String					codigoAnimal = "";
 	
 	public Carrinho(){
+		 super("CARRINHO", TAB_ONLY_BORDER);
 		 setBackColor(0x1c355d);
 		 initUI();
 		 
@@ -91,7 +99,7 @@ public class Carrinho extends totalcross.ui.Window{
 			editTotalVenda = new Edit();
 			add(editTotalVenda);
 			editTotalVenda.setEditable(false);
-			editTotalVenda.setRect(LEFT + 10, AFTER + 2, SCREENSIZE + 40, PREFERRED, editQntAnimais);
+			editTotalVenda.setRect(LEFT + 10, AFTER + 15, SCREENSIZE + 40, PREFERRED, editQntAnimais);
 			editTotalVenda.setBackColor(0x1c355d);
 			editTotalVenda.setForeColor(Color.BLACK);
 			
@@ -166,7 +174,7 @@ public class Carrinho extends totalcross.ui.Window{
 			gridCarrinho.setFont(Auxiliares.getFontNormal().asBold());
 			gridCarrinho.secondStripeColor = Auxiliares.secondStripeColorNovo;
 			gridCarrinho.setCellController(new CellController6());
-			gridCarrinho.setRect(Grid.CENTER + 1, BEFORE - 30, SCREENSIZE + 100, SCREENSIZE + 70, btnVoltar);
+			gridCarrinho.setRect(Grid.CENTER + 1, BEFORE - 30, SCREENSIZE + 100, SCREENSIZE + 66, btnVoltar);
 			
 			reposition();
 			
@@ -201,11 +209,11 @@ public class Carrinho extends totalcross.ui.Window{
 						
 					} else {
 
-						baixaEstoque();
 						salvaInfoVenda();
+						atualizaRebanho();
 						
 						Auxiliares.messagebox("AGIL",
-								"Venda efetuada com sucesso!\n" + lblQuantidade.getText() + "\n" + lblTotal.getText());
+								"Venda efetuada com sucesso!\n" + "\n" + editQntAnimais.getText() + "\n" + editTotalVenda.getText());
 
 						Loja.btnCarrinho.setEnabled(false);
 						unpop();
@@ -213,7 +221,7 @@ public class Carrinho extends totalcross.ui.Window{
 				}else if(evt.target == btnAlterar) {
 					if (gridCarrinho.getSelectedItem() != null) {						
 						
-						AlteraAnimalCarrinho alterarAnimalCarrinho = new AlteraAnimalCarrinho();
+						AlterarAnimalCarrinho alterarAnimalCarrinho = new AlterarAnimalCarrinho();
 						alterarAnimalCarrinho.popup();
 							
 					} else {
@@ -223,7 +231,9 @@ public class Carrinho extends totalcross.ui.Window{
 				}else if(evt.target == btnRemover) {
 					
 					if (gridCarrinho.getSelectedItem() != null) {						
-
+						
+						RemoverAnimalCarrinho removeAnimalCarrinho = new RemoverAnimalCarrinho();
+						removeAnimalCarrinho.popup();
 
 					} else {
 						Auxiliares.messagebox("AGIL", "Deve-se selecionar um animal para remover!");
@@ -238,7 +248,8 @@ public class Carrinho extends totalcross.ui.Window{
 
 					try {
 
-						codigoVenda = gridCarrinho.getSelectedItem()[0];
+						codigoVenda 			 = gridCarrinho.getSelectedItem()[0];
+						codigoAnimal			 = gridCarrinho.getSelectedItem()[1];
 
 					} catch (Exception e) {
 						Auxiliares.messagebox("AGIL", "Clique em um animal!");
@@ -255,9 +266,10 @@ public class Carrinho extends totalcross.ui.Window{
 	}
 	
 	public void carregaGridCarrinho() {
-		String sql = "";
-		LitebasePack lb = null;
-		ResultSet rs = null;
+		
+		String sql 			 = "";
+		LitebasePack lb		 = null;
+		ResultSet rs 		 = null;
 
 		try {
 			try {
@@ -271,6 +283,7 @@ public class Carrinho extends totalcross.ui.Window{
 				rs.first();
 				
 				for (int i = 0; rs.getRowCount() > i; i++) {
+					
 					String[] b = new String[18];
 					
 					b[0]  = Convert.toString(rs.getInt("CODIGOVENDA"));
@@ -309,124 +322,101 @@ public class Carrinho extends totalcross.ui.Window{
 
 	}
 	
-	public void baixaEstoque() {
+	public void atualizaRebanho() {
 		
 		String sql 			= "";
 		LitebasePack lb     = null;
 		ResultSet rs 		= null;
-		
-		String sql2 		= "";
-		ResultSet rs2 		= null;
-		LitebasePack lb2 	= null;
 
 		try {
 
 			try {
+				
 				lb = new LitebasePack();
 				
-				sql = "SELECT * FROM VENDAPRODUTOTEMP";
+				sql = "SELECT * FROM VENDAANIMALTEMP";
 				
 				rs = lb.executeQuery(sql);
 				rs.beforeFirst();
 				
-				while (rs.next()) {
-					codigoTemp = rs.getInt("CODIGO");
-					produtoTemp = rs.getString("PRODUTO");
-					codigoProdTemp = rs.getInt("CODIGOPROD");
-					quantidadeTemp = rs.getInt("QUANTIDADE");
-					categoriaTemp = rs.getString("CATEGORIA");
-					marcaTemp = rs.getString("MARCA");
-					descricaoTemp = rs.getString("DESCRICAO");
-					tipoPagamento = rs.getString("TIPOPAGAMENTO");
-					dataSaidaTemp = rs.getDate("DATASAIDA");
+				while(rs.next()) {
 					
-					lb2 = new LitebasePack();
-					sql2 = " SELECT QUANTIDADE, CODIGO, DATAENTRADA, VALOR FROM ESTOQUE "
-						 + " WHERE CODIGO = " + codigoProdTemp;
-
-					rs2 = lb2.executeQuery(sql2);
-					rs2.first();
-					
-					qntEstoqueCalculo = rs2.getInt("QUANTIDADE");
-					dataEntrada = rs2.getDate("DATAENTRADA");
-					valorProduto = rs2.getString("VALOR");
-					
-					dataString = dataEntrada.toString(Settings.DATE_YMD);
-									
-					codigo = rs2.getInt("CODIGO");
-					quantidadeVendida = quantidadeTemp;
-
-					quantidadeEstoque = qntEstoqueCalculo - quantidadeVendida;
-										
-					sql = "DELETE FROM ESTOQUE WHERE CODIGO = " + codigoProdTemp;
+					sql = " UPDATE REBANHO " 
+						+ " SET QUANTIDADE = " + rs.getInt("QUANTIDADE")
+				        + " WHERE CODIGO = " + rs.getInt("CODIGOANIMAL");
 
 					lb.executeUpdate(sql);
 					
-						
-					sql = "INSERT INTO 	ESTOQUE " + "(" + " CODIGO, PRODUTO, MARCA, VALOR, QUANTIDADE, "
-						+ " CATEGORIA, DESCRICAO, DATAENTRADA " + ")" + " VALUES " + "( '" + codigoProdTemp
-						+ "' , '" + produtoTemp + "', '" + marcaTemp + "', '" + valorProduto + "', '"
-						+ quantidadeEstoque + "', '" + categoriaTemp + "','" + descricaoTemp + "', '"
-						+ dataString + "'" + ")";
+				}
 
-						lb.executeUpdate(sql);
-					}
-
-				
 			} finally {
 				if (lb != null)
 					lb.closeAll();
 			}
 
 		} catch (Exception e) {
-			Auxiliares.messagebox("ERRO", "Erro baixaEstoque\n" + e);
+			Auxiliares.messagebox("ERRO", "Erro atualizaRebanho\n" + e);
 		}
 	}
 	
 	public void salvaInfoVenda() {
-		String sql = "";
-		LitebasePack lb = null;
-		ResultSet rs = null;
+		
+		String sql 				= "";
+		LitebasePack lb 		= null;
+		ResultSet rs 			= null;
 
 		try {
 
 			try {
+				
 				lb = new LitebasePack();
 				
-				sql = "SELECT * FROM VENDAPRODUTOTEMP WHERE CODIGO = " + codigoTemp;
+				sql = "SELECT * FROM VENDAANIMALTEMP";
 				
 				rs = lb.executeQuery(sql);
 				rs.beforeFirst();
 				
-				while (rs.next()) {
-					codigoTemp = rs.getInt("CODIGO");
-					produtoTemp = rs.getString("PRODUTO");
-					totalTemp = rs.getString("VALOR");
-					codigoProdTemp = rs.getInt("CODIGOPROD");
-					quantidadeTemp = rs.getInt("QUANTIDADE");
-					categoriaTemp = rs.getString("CATEGORIA");
-					marcaTemp = rs.getString("MARCA");
-					descricaoTemp = rs.getString("DESCRICAO");
-					tipoPagamento = rs.getString("TIPOPAGAMENTO");
-					dataSaidaTemp = rs.getDate("DATASAIDA");
+				while(rs.next()) {
 					
-					dataSaidaString = dataSaidaTemp.toString(Settings.DATE_YMD);
-					
-					sql = "INSERT INTO VENDAPRODUTO " + "(" + " CODIGO, PRODUTO, VALOR, CODIGOPROD, QUANTIDADE, "
-							+ " CATEGORIA, MARCA, DESCRICAO,TIPOPAGAMENTO, DATASAIDA " + ")" + " VALUES " + "( '" + codigoTemp
-							+ "' , '" + produtoTemp + "', '" + totalTemp + "', '" +  codigoProdTemp + "', '" + quantidadeTemp + "', '"
-							+ categoriaTemp + "','" + marcaTemp + "', '" + descricaoTemp + "', '" + tipoPagamento + "', '" + dataSaidaString + "'"
-							+ ")";
-
-					lb.executeUpdate(sql);
-
+					  codigoVendaInfo 					= rs.getInt("CODIGOVENDA");
+					  codigoAnimalInfo 					= rs.getInt("CODIGOANIMAL");
+					  descricaoInfo 					= rs.getString("DESCRICAO");
+					  idadeInfo 						= rs.getString("IDADE");
+					  sexoInfo 							= rs.getString("SEXO");
+					  racaInfo 							= rs.getString("RACA");
+					  pesoInfo 							= rs.getString("PESO");
+					  dataDaCompraInfo 					= rs.getString("DATACOMPRA");
+					  precocompraInfo 					= rs.getString("PRECOCOMPRA");
+					  precoVendaInfo 					= rs.getString("PRECOVENDA");
+					  statusInfo 						= rs.getString("STATUS");
+					  pastagemInfo 						= rs.getString("PASTAGEM");
+					  aftosaInfo 						= rs.getString("AFTOSA");
+					  raivaInfo 						= rs.getString("RAIVA");
+					  quantidadeVendidaInfo				= rs.getInt("QUANTIDADE");
+					  dataVendaInfo 					= rs.getDate("DATAVENDA").toString(Settings.DATE_YMD);
+					  tipopagamentoInfo 				= rs.getString("TIPOPAGAMENTO");
+					  totalInfoCalc 					= Convert.toDouble(rs.getString("TOTALVENDA").replace(",", "."));
+					  totalInfo							= Convert.toCurrencyString(totalInfoCalc, 2);
+									
+					  qntDeAnimaisVendidos 				+= rs.getInt("QUANTIDADE");
+					  valorTotalDevendas      			+= Convert.toDouble(rs.getString("TOTALVENDA").replace(",", "."));
+					  
+					  sql = "INSERT INTO VENDAANIMAL " + "("
+								+ " CODIGOANIMAL, DESCRICAO, IDADE, SEXO, RACA, PESO, DATACOMPRA, "
+								+ " PRECOCOMPRA, PRECOVENDA, STATUS, PASTAGEM, AFTOSA, RAIVA, CODIGOVENDA, TOTALVENDA, QUANTIDADE, "
+								+ " TIPOPAGAMENTO, DATAVENDA " + ")" + " VALUES " + "( '" + codigoAnimalInfo + "' , '"
+								+ descricaoInfo + "', '" + idadeInfo + "', '" + sexoInfo + "', '" + racaInfo + "','" + pesoInfo + "','"
+								+ dataDaCompraInfo + "', '" + precocompraInfo + "', '" + precoVendaInfo + "', '" + statusInfo + "', '"
+								+ pastagemInfo + "', '" + aftosaInfo + "', '" + raivaInfo + "', '" + codigoVendaInfo + "', '"
+								+ totalInfoCalc + "', '" + quantidadeVendidaInfo + "', '"
+								+ tipopagamentoInfo + "', '" + dataVendaInfo + "'" + ")";
+						
+						lb.executeUpdate(sql);
 				}
-				
-				sql = "DELETE VENDAPRODUTOTEMP WHERE CODIGO = " + codigoTemp;
 
-				lb.executeUpdate(sql);
 
 			} finally {
+				
 				if (lb != null)
 					lb.closeAll();
 			}

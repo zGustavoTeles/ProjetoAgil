@@ -21,6 +21,7 @@ import com.cadastroDeAnimais.CadastroDeAnimais;
 import com.litebase.LitebasePack;
 import com.loja.Loja;
 import com.medicacao.Medicacao;
+import com.movimentacaoCaixa.MovimentacaoCaixa;
 
 public class Menu extends totalcross.ui.Window {
 	
@@ -252,6 +253,9 @@ public class Menu extends totalcross.ui.Window {
 					medicacao.popup();
 
 				} else if (evt.target == btnMovCaixa) {
+					
+					MovimentacaoCaixa movimentacaoCaixa = new MovimentacaoCaixa();
+					movimentacaoCaixa.popup();
 
 				} else if (evt.target == btnMovBanco) {
 
