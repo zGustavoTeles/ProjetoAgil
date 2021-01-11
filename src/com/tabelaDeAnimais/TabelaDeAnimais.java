@@ -3,21 +3,18 @@ package com.tabelaDeAnimais;
 import com.auxiliares.Auxiliares;
 import com.bottom.BottomImg;
 import com.cellcontroller6.CellController6;
+import com.email.Email;
 import com.litebase.LitebasePack;
-import com.oracle.xmlns.internal.webservices.jaxws_databinding.ExistingAnnotationsType;
-
+import com.pdf.Pdf;
 import litebase.ResultSet;
 import totalcross.sys.Convert;
-import totalcross.sys.Settings;
 import totalcross.ui.Button;
 import totalcross.ui.Grid;
 import totalcross.ui.ImageControl;
 import totalcross.ui.event.ControlEvent;
 import totalcross.ui.event.Event;
-import totalcross.ui.event.GridEvent;
 import totalcross.ui.gfx.Color;
 import totalcross.ui.image.Image;
-import totalcross.util.Date;
 
 public class TabelaDeAnimais extends totalcross.ui.Window {
 	
@@ -25,6 +22,8 @@ public class TabelaDeAnimais extends totalcross.ui.Window {
 	private Button						 btnVoltar;
 	private Button						 btnAlterar;
 	private Button						 btnRemover;
+	private Button						 btnPDF;
+	private Button						 btnEmail;
 	
 	public ImageControl 		         imgAnimais;
 	
@@ -58,6 +57,16 @@ public class TabelaDeAnimais extends totalcross.ui.Window {
 			add(btnRemover, AFTER, BOTTOM, SCREENSIZE + 18, SCREENSIZE + 15);
 			btnRemover.setBackColor(0x1c355d);
 			btnRemover.setForeColor(Color.WHITE);
+			
+			btnPDF = BottomImg.imageWithText(new Image("img/pdf.png"), "Gerar PDF", Button.BOTTOM);
+			add(btnPDF, AFTER, BOTTOM, SCREENSIZE + 18, SCREENSIZE + 15);
+			btnPDF.setBackColor(0x1c355d);
+			btnPDF.setForeColor(Color.WHITE);
+			
+			btnEmail = BottomImg.imageWithText(new Image("img/email.png"), "Enviar E-mail", Button.BOTTOM);
+			add(btnEmail, AFTER, BOTTOM, SCREENSIZE + 18, SCREENSIZE + 15);
+			btnEmail.setBackColor(0x1c355d);
+			btnEmail.setForeColor(Color.WHITE);
 			
 			btnVoltar = BottomImg.imageWithText(new Image("img/sair.png"), "Voltar", Button.BOTTOM);
 			add(btnVoltar, RIGHT - 2, BOTTOM, SCREENSIZE + 18, SCREENSIZE + 15);
@@ -145,6 +154,42 @@ public class TabelaDeAnimais extends totalcross.ui.Window {
 					} else {
 
 						Auxiliares.messagebox("AGIL", "Deve-se selecionar um cadastro para remover!");
+					}
+					
+				} else if (evt.target == btnPDF) {
+					
+					String[] ArtButtonArray = { "Sim", "Não" };
+
+					int i = Auxiliares.messageBox("AGIL", "Deseja gerar um relatório dos animais cadastrados em PDF?",
+							ArtButtonArray);
+
+					if (i == 1) {
+						return;
+
+					} else {
+
+						Pdf pdf = new Pdf();
+						pdf.gerarPDFDeCadAnimais();
+					}
+					
+				} else if (evt.target == btnEmail) {
+					
+					String emailEnvio = "";
+					
+					emailEnvio = Auxiliares.messageInput("AGIL", "Por favor insira um endereço de e-mail", "");
+					
+					String[] ArtButtonArray = { "Sim", "Não" };
+
+					int i = Auxiliares.messageBox("AGIL", "Deseja enviar um relatório dos animais cadastrados por e-mail?",
+							ArtButtonArray);
+
+					if (i == 1) {
+						return;
+
+					} else {
+
+						Email email = new Email();
+						email.enviaEmailAnimaisCadastrados(emailEnvio);
 					}
 				}
 

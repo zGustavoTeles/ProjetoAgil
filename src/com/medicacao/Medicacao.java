@@ -1,27 +1,20 @@
 package com.medicacao;
 
 import com.auxiliares.Auxiliares;
-import com.baseContainer.BaseContainer;
 import com.bottom.BottomImg;
 import com.cellcontroller6.CellController6;
 import com.litebase.LitebasePack;
-import com.oracle.xmlns.internal.webservices.jaxws_databinding.ExistingAnnotationsType;
 import litebase.ResultSet;
 import totalcross.sys.Convert;
-import totalcross.sys.Settings;
-import totalcross.ui.Bar;
 import totalcross.ui.Button;
 import totalcross.ui.Grid;
 import totalcross.ui.ImageControl;
 import totalcross.ui.ListBox;
 import totalcross.ui.ProgressBar;
-import totalcross.ui.Window;
 import totalcross.ui.event.ControlEvent;
 import totalcross.ui.event.Event;
-import totalcross.ui.event.GridEvent;
 import totalcross.ui.gfx.Color;
 import totalcross.ui.image.Image;
-import totalcross.util.Date;
 
 public class Medicacao extends totalcross.ui.Window {
 	

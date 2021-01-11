@@ -4,24 +4,17 @@ import com.agenda.Agenda;
 import com.auxiliares.Auxiliares;
 import com.bottom.BottomImg;
 import com.litebase.LitebasePack;
-import com.principal.Agil;
-import com.sun.org.apache.bcel.internal.generic.IDIV;
 import litebase.ResultSet;
 import totalcross.sys.Convert;
-import totalcross.sys.Settings;
 import totalcross.ui.Button;
 import totalcross.ui.ComboBox;
 import totalcross.ui.Edit;
-import totalcross.ui.Grid;
-import totalcross.ui.ImageControl;
 import totalcross.ui.Label;
 import totalcross.ui.event.ControlEvent;
 import totalcross.ui.event.Event;
 import totalcross.ui.event.PenEvent;
 import totalcross.ui.gfx.Color;
 import totalcross.ui.image.Image;
-import totalcross.util.Date;
-import totalcross.util.Random;
 
 public class RemoverAnimal extends totalcross.ui.Window{
 	

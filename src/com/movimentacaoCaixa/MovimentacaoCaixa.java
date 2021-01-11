@@ -4,8 +4,10 @@ import com.agenda.Agenda;
 import com.auxiliares.Auxiliares;
 import com.bottom.BottomImg;
 import com.cellcontroller6.CellController6;
+import com.email.Email;
 import com.litebase.LitebasePack;
 import com.pdf.Pdf;
+import com.principal.Agil;
 
 import litebase.ResultSet;
 import totalcross.sys.Convert;
@@ -209,19 +211,60 @@ public class MovimentacaoCaixa extends totalcross.ui.Window{
 				} else if (evt.target == btnPdf) {
 
 					if (editDataUm.getText().equals("") || editDataDois.getText().equals("")) {
-						
+
 						Auxiliares.messagebox("AGIL",
 								"Preencha todos os campos de data à serem pesquisados, e realize uma pesquisa para gerar um relatório em PDF");
 						return;
 
 					} else {
-						
-						dataI 		= new Date(editDataUm.getText()).toString(Settings.DATE_YMD);
-						dataII 		= new Date(editDataDois.getText()).toString(Settings.DATE_YMD);
 
-						Pdf pdf		= new Pdf();
+						String[] ArtButtonArray = { "Sim", "Não" };
+
+						int i = Auxiliares.messageBox("AGIL", "Deseja gerar um relatório das vendas pesquisas em PDF?",
+								ArtButtonArray);
+
+						if (i == 1) {
+							return;
+
+						} else {
+
+							dataI = new Date(editDataUm.getText()).toString(Settings.DATE_YMD);
+							dataII = new Date(editDataDois.getText()).toString(Settings.DATE_YMD);
+
+							Pdf pdf = new Pdf();
+
+							pdf.gerarPDFDeVenda(dataI, dataII);
+						}
+					}
+				} else if (evt.target == btnEmail) {
+
+					if (editDataUm.getText().equals("") || editDataDois.getText().equals("")) {
 						
-						pdf.gerarPDFDeVenda(dataI, dataII);
+						Auxiliares.messagebox("AGIL",
+								"Preencha todos os campos de data à serem pesquisados, e realize uma pesquisa para gerar um relatório há ser enviado por e-mail");
+						return;
+
+					} else {
+						
+						String emailEnvio = "";
+						
+						emailEnvio = Auxiliares.messageInput("AGIL", "Por favor insira um endereço de e-mail", "");
+						
+						String[] ArtButtonArray = { "Sim", "Não" };
+
+						int i = Auxiliares.messageBox("AGIL", "Deseja enviar um relatório das vendas pesquisas por e-mail?", ArtButtonArray);
+
+						if (i == 1) {
+							return;
+
+						} else {
+							
+							dataI 		= new Date(editDataUm.getText()).toString(Settings.DATE_YMD);
+							dataII 		= new Date(editDataDois.getText()).toString(Settings.DATE_YMD);
+
+							Email email = new Email();
+							email.enviaEmailVendasPeriodo(dataI, dataII, emailEnvio);
+						}
 					}
 				}
 

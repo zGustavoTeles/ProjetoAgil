@@ -3,6 +3,7 @@ package com.menu;
 import com.auxiliares.Auxiliares;
 import litebase.ResultSet;
 import com.principal.Agil;
+import com.suporte.Suporte;
 import com.tabelaDeAnimais.TabelaDeAnimais;
 import com.vacinacao.Vacinacao;
 import totalcross.sys.Convert;
@@ -39,7 +40,7 @@ public class Menu extends totalcross.ui.Window {
 	private Button						 btnTabelaAnimais;
 	private Button						 btnVacinacao;
 	private Button						 btnLista;
-	private Button						 btnManual;
+	private Button						 btnSuporte;
 	private Button						 btnFichaSalario;
 	private Button						 btnReciboPagamento;
 	private Button						 btnReciboRecebimento;
@@ -154,11 +155,11 @@ public class Menu extends totalcross.ui.Window {
 
 //----------Terceira Linha-------------------------------------------------------------------------------------------------------
 			
-			btnManual = BottomImg.imageWithText(new Image("img/manual.png"), "MANUAL / DICAS", Button.BOTTOM);
-			add(btnManual, LEFT + 5, AFTER + 30, SCREENSIZE + 14, SCREENSIZE + 15);
-			btnManual.setBackColor(0x1c355d);
-			btnManual.setForeColor(Color.WHITE);
-			btnManual.setFont(Auxiliares.getFontPequena());
+			btnSuporte = BottomImg.imageWithText(new Image("img/manual.png"), "SUPORTE", Button.BOTTOM);
+			add(btnSuporte, LEFT + 5, AFTER + 30, SCREENSIZE + 14, SCREENSIZE + 15);
+			btnSuporte.setBackColor(0x1c355d);
+			btnSuporte.setForeColor(Color.WHITE);
+			btnSuporte.setFont(Auxiliares.getFontPequena());
 			
 			btnFichaSalario = BottomImg.imageWithText(new Image("img/salario.png"), "FICHA SALARIOS", Button.BOTTOM);
 			add(btnFichaSalario, AFTER, SAME, SCREENSIZE + 14, SCREENSIZE + 15);
@@ -235,10 +236,19 @@ public class Menu extends totalcross.ui.Window {
 					loja.popup();
 
 				} else if (evt.target == btnCadClientes) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnCadFornecedor) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnContasPagar) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnCadAnimais) {
 					
@@ -246,6 +256,9 @@ public class Menu extends totalcross.ui.Window {
 					cadasTroAnimais.popup();
 
 				} else if (evt.target == btnPesagem) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnMedicacao) {
 					
@@ -258,10 +271,19 @@ public class Menu extends totalcross.ui.Window {
 					movimentacaoCaixa.popup();
 
 				} else if (evt.target == btnMovBanco) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnChequesPre) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnContReceber) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnTabelaAnimais) {
 					
@@ -274,18 +296,38 @@ public class Menu extends totalcross.ui.Window {
 					vacinacao.popup();
 
 				} else if (evt.target == btnLista) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
 
-				} else if (evt.target == btnManual) {
+
+				} else if (evt.target == btnSuporte) {
+					
+					Suporte suporte = new Suporte();
+					suporte.popup();
 
 				} else if (evt.target == btnFichaSalario) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnReciboPagamento) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnReciboRecebimento) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnTelefone) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
+
 
 				} else if (evt.target == btnCalcJuros) {
+					
+					Auxiliares.messagebox("AGIL", "Módulo em desenvolvimento!/nPor favor entre em contato com o suporte caso queira habilita-lo");
 
 				} else if (evt.target == btnVoltar) {
 					unpop();
